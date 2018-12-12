@@ -1,0 +1,13 @@
+.row(ng-controller='OrganizationsController as organizations')
+  col-responsive
+    .form-group
+      label Наименование Ru
+      input.form-control(type='text' ng-model='edit.dictionary.name_ru' ng-required='true' ng-trim='true')
+  col-responsive
+    .form-group
+      label Наименование Kg
+      input.form-control(type='text' ng-model='edit.dictionary.name_kg' ng-trim='true')
+  col-responsive
+    .form-group
+      label Инн
+      input.form-control(type='text' ng-model='edit.dictionary.inn' ng-trim='true')

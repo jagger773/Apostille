@@ -1,0 +1,25 @@
+link(rel='stylesheet', href='https://www.w3schools.com/w3css/4/w3.css')
+panel(title='Инфо')
+  .panel-body
+    .container
+      .col-md-8.col-sm-7.col-xs-12
+        .product-image(ng-init="zoomWidth = 1000;imgStyle = {width:'700px'}", ng-style='imgStyle', ng-mouse-wheel-up="zoomWidth = zoomWidth + 20; imgStyle.width = zoomWidth +'px'; ", ng-mouse-wheel-down="zoomWidth = zoomWidth - 20;imgStyle.width = zoomWidth  +'px'; ")
+          img(src='{{info.document.data.files[info.slid].url}}', alt='...')
+          hr
+        .product_gallery
+          a(ng-repeat="url in info.document.data.files",ng-click='info.show($index)')
+            img.gallery(src='{{url.url}}', alt='...')
+      .container
+        .sized
+          strong ФИО: &nbsp;
+          | {{info.document.title}}
+        br
+        .sized
+          strong Организация: &nbsp;
+          | {{info.document.organization.name_ru}}
+        br
+        .sized
+          strong Позиция: &nbsp;
+          | {{info.document.position.name}}
+
+        hr

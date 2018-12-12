@@ -1,0 +1,20 @@
+//
+   Created by Ilias on 17/12/17.
+
+
+.modal-header
+  h3 {{position.modalOptions.title}}
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='position.searchPositions()')
+        .form-group
+          label Наименование
+          input.form-control(type='search' ng-model='position.search_name')
+        button.btn.btn-success(type='submit') Показать
+        button.btn.btn-success(type='button' ng-click='position.createPosition()') Создать новый
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='position.gridOptions' disable-search='true' height='500')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='position.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!position.selected_position' ng-click='position.selectPosition()') Принять

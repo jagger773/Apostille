@@ -1,0 +1,15 @@
+.row(ng-controller='DirReportCategoriesController as category')
+  .col-md-6.col-xs-12
+    .form-group
+      label Название
+      input.form-control(type='text', ng-model='edit.dictionary.name', ng-required='true', ng-trim='true')
+  .col-md-6.col-xs-12
+    .form-group
+      label Родительская категория
+      ui-select(ng-model="edit.dictionary.parent_id" ng-disabled='edit.dictionary.children.length>0')
+        ui-select-match(allow-clear='true')
+          span(ng-bind="$select.selected.name")
+        ui-select-choices(repeat="parent._id as parent in category.dirReportCategories | filter: {name:$select.search} track by parent._id", ui-disable-choice='parent._id!=null&&parent._id==edit.dictionary._id')
+          span(ng-bind="parent.name")
+
+

@@ -1,0 +1,67 @@
+.container
+  panel(title='Расчет суммы')
+    form
+      .row
+        col-responsive
+          .form-group
+            label Статус:
+            ui-select.form-control(ng-model='calculations.filter.status' ng-required='true')
+              ui-select-match(allow-clear='true') {{$select.selected.name}}
+              ui-select-choices(repeat='status.value as status in calculations.statuses | filter:$select.name') {{status.name}}
+        col-responsive
+          .form-group
+            label Начало:
+            .input-group.no-margin
+              input.form-control(type="text" max-date="calculations.date_end" uib-datepicker-popup="dd-MM-yyyy" ng-model="calculations.filter.date_start"
+              ng-click="calculations.search.popup_to_date.opened=true" is-open="calculations.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="calculations.search.popup_to_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+
+        col-responsive
+          .form-group
+            label Конец:
+            .input-group.no-margin
+              input.form-control(type="text" uib-datepicker-popup="dd-MM-yyyy" min-date="calculations.date_start" ng-model="calculations.filter.date_end"
+              ng-click="calculations.search.popup_from_date.opened=true" is-open="calculations.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="calculations.search.popup_from_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+
+    button.btn.btn-primary(type='button', ng-click='calculations.getJournals()')
+      i.fa.fa-search(aria-hidden='true')
+      |  Расчитать
+    button.btn.btn-default(type='button'  ng-click='calculations.filter={}') Сбросить фильтры
+    table.table.table-striped.bg-white.b-a
+      thead
+        tr
+          th Наименование
+          th(style='width: 140px') Кол-во
+          th(style='width: 90px') Итого
+      tbody
+        tr(ng-show='calculations.incoming')
+          td По входящим
+          td {{calculations.incoming_count}}
+          td {{calculations.incoming}}
+        tr(ng-show='calculations.outgoing')
+          td По исходящим
+          td {{calculations.outgoing_count}}
+          td {{calculations.outgoing}}
+        tr(ng-show='calculations.spoiled')
+          td По испорченным
+          td {{calculations.spoiled_count}}
+          td {{calculations.spoiled}}
+        tr(ng-show='calculations.refused')
+          td По отказанным
+          td {{calculations.refused_count}}
+          td {{calculations.refused}}
+        tr
+          td.text-right.no-border(colspan='2')
+            strong Всего
+            span  входящих и исходящих
+          td
+            strong {{calculations.summ}}
+
+
+
+

@@ -1,0 +1,46 @@
+//
+   Created by troy on 09.09.2016.
+button.btn.btn-default.pull-right(ui-sref='app.profile.edit')
+  span.fa.fa-pencil
+.row
+  .col.col-xs-12.col-lg-6
+    .clearfix
+    .avatar-holder.text-center
+      a
+        img.profile-image(ng-src="{{app.api}}{{app.ua.data.image}}")
+    .text-center
+      h4 {{app.ua.data.surname}} {{app.ua.data.name}}
+      div @{{app.ua.username}} &bull; {{app.ua.rec_date | amDateFormat:'MMMM DD, YYYY, HH:mm:ss'}}
+      a(href='mailto:{{app.ua.email}}') {{app.ua.email}}
+  .col.col-xs-12.col-lg-6.row-striped
+    h4 Данные пользователя
+    .row
+      .col.col-xs-12.col-md-4 Имя пользователя (Логин)
+      .col.col-xs-12.col-md-8 {{app.ua.username}}
+    .row
+      .col.col-xs-12.col-md-4 E-mail
+      .col.col-xs-12.col-md-8 {{app.ua.email}}
+    .row
+      .col.col-xs-12.col-md-4 Фамилия
+      .col.col-xs-12.col-md-8 {{app.ua.data.surname}}
+    .row
+      .col.col-xs-12.col-md-4 Имя
+      .col.col-xs-12.col-md-8 {{app.ua.data.name}}
+    .row
+      .col.col-xs-12.col-md-4 Отчество
+      .col.col-xs-12.col-md-8 {{app.ua.data.middlename}}
+    .row
+      .col.col-xs-12.col-md-4 Должность
+      .col.col-xs-12.col-md-8 {{app.ua.data.position}}
+    .row
+      .col.col-xs-12.col-md-4 Адрес
+      .col.col-xs-12.col-md-8 {{app.ua.data.address}}
+    .row
+      .col.col-xs-12.col-md-4 Мобильный телефон
+      .col.col-xs-12.col-md-8 {{app.ua.data.mobile}}
+    .row
+      .col.col-xs-12.col-md-4 Рабочий телефон
+      .col.col-xs-12.col-md-8 {{app.ua.data.phone}}
+    .row
+      .col.col-xs-12.col-md-4 Дата рождения
+      .col.col-xs-12.col-md-8 {{app.ua.data.birthdate | amDateFormat: 'Do MMM YYYY'}}

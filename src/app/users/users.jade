@@ -1,0 +1,14 @@
+//
+   Created by Aibek on 13/06/16.
+
+.container
+  panel(title="Пользователи")
+    //button.btn.btn-primary.btn-sm(ng-click='product.newProduct()') Добавить
+    button.btn.btn-primary.btn-sm(ng-click="users.newUser()") Добавить
+    //button.btn.btn-default.btn-sm(ng-disabled='!product.selected_product' ng-click='product.editProduct()')
+    button.btn.btn-default.btn-sm(ng-click="users.editUser()" ng-disabled="users.selected_user == null")
+      span.glyphicon.glyphicon-pencil.margin-right-8
+      span Изменить
+    button.btn.btn-default.btn-sm(ng-click='product.getUsers()')
+      span.glyphicon.glyphicon-refresh
+    paged-table(options='users.usersGridOptions', disable-search='true')

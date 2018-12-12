@@ -1,0 +1,62 @@
+//
+   Created by Ilias on 23.11.2017.
+
+panel(title="Редактировать" )
+  .wrapper-md
+    .panel.panel-default
+      .panel-heading
+        .container.center
+          .row
+            .col.col-md-8
+              .form-group
+                label Название
+                input.form-control(type='text', ng-model='edit.document.title' required)
+          .row
+            .col.col-md-8
+              .form-group
+                label Организвция
+                ui-select.form-control(ng-model='edit.document.organization_id', ng-required='true')
+                  ui-select-match {{$select.selected.name_ru}}
+                  ui-select-choices(repeat='organization._id as organization in edit.organizations | filter:$select.search') {{organization.name_ru}}
+          .row
+            .col.col-md-8
+              .form-group
+                label Позиция
+                ui-select.form-control(ng-model='edit.document.position_id', ng-required='true')
+                  ui-select-match {{$select.selected.name}}
+                  ui-select-choices(repeat='position._id as position in edit.positions | filter:$select.search') {{position.name}}
+          .row
+            .col.col-md-8
+              table.table.table-bordered
+                thead
+                  tr
+                    th #
+                    th Название
+                    th Опции
+                  thead
+                    tbody
+                    tr.clickable-row(ng-repeat='qwe in edit.document.data.files', ng-click='dashboard.info(document._id)')
+                      td(width='10px') {{$index + 1}}.
+                      td {{qwe.filename}}
+                      td.text-center
+                        a.btn.btn-sm.btn-icon.btn-danger(ng-click="edit.callDeleteImage(qwe.filename, edit.document._id)")
+                          i.glyphicon.glyphicon-trash
+          .row
+            .col.col-md-8
+              .form-group
+                div(flow-init='edit.uploader.flow.opts' flow-name="edit.uploader.flow" flow-file-success="edit.uploader.controllerFn($flow, $file, $message)" flow-file-added="!!{jpg:1,jpeg:1,gif:1,png:1,doc:1,xls:1,xlsx:1,pnt:1,htm:1,pdf:1,txt:1,docx:1}[$file.getExtension()]")
+                  button.btn.btn-warning.btn-sm(flow-btn flow-files-submitted="edit.upload()")
+                    span.glyphicon.glyphicon-plus Файл
+                  div(ng-repeat="file in edit.new_files")
+                    span {{file.file.filename}} -
+                    a(ng-click="removeFile(file.name); file.cancel(); edit.remove_photo(file.file.filename)")
+                      i.glyphicon.glyphicon-trash
+                    div.progress.progress-striped(ng-class="{active: file.isUploading()}")
+                      div.progress-bar(role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (file.progress() * 100) + '%'}" style="width: 100%;")
+                        span.sr-only.ng-binding 1% Complete
+
+                span файлы: {{edit.new_files.length}}
+        hr
+        form.crt(ng-submit='edit.saveDoc()' name='adddocument')
+          button.btn.btn-primary.btn-sm(type="submit" ng-click="edit.save()", ng-disabled="adddocument.$invalid") Сохранить
+          a.btn.btn-link.btn-sm(ng-disabled='edit.saving==true', type='button', ui-sref='app.document.list') Назад

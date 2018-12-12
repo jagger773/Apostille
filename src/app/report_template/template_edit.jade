@@ -1,0 +1,25 @@
+form(ng-submit='edit.save()')
+  .modal-header
+    h3 Шаблон отчета
+  .modal-body
+    .row
+      col-responsive
+        .form-group
+          label Код
+          input.form-control(type='text' ng-model='edit.template.code' ng-required='true')
+      col-responsive
+        .form-group
+          label Наименование
+          input.form-control(type='text' ng-model='edit.template.name' ng-required='true')
+      col-responsive(stock-dict='edit.report_categories' dict-table='DirReportCategories')
+        .form-group
+          label Категория
+          ui-select(ng-model='edit.template.report_category_id')
+            ui-select-match {{$select.selected.name}}
+            ui-select-choices(repeat='category._id as category in edit.report_categories|filter:{name:$select.search}' group-by='app.parentGroup') {{category.name}}
+    .form-group
+      label Шаблон
+      textarea.form-control(rows=10 ng-required='true' ng-model='edit.template.template')
+  .modal-footer
+    button.btn.btn-warning(ng-disabled='edit.saving' type='button' ng-click='edit.cancel()') Отмена
+    button.btn.btn-primary(ng-disabled='edit.saving' type='submit') Сохранить

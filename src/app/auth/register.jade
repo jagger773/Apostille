@@ -1,0 +1,56 @@
+//
+   Created by jaynakus on 5/26/16.
+.container.body.footer-fixed
+  .main_container
+    // page content
+    .right_col(role="main")
+      .login.desktop
+        .flex(layout="row")
+          .login-left.flex(layout="column")
+            .stok-logo
+              //img(ng-src="/assets/images/stock2.png")
+            .stok-description.flex(layout="column")
+              h1 Добро пожаловать!
+              h2 Войдите в аккаунт Apostille
+              div
+                a.btn.btn-success(ui-sref="login") ВОЙТИ
+            .stok-footer
+              .row
+                .col-xs-12.col-sm-12.col-md-6.text-center © 2017-2018 ICT lab
+                .col-xs-12.col-sm-12.col-md-6.text-center
+                  a(href="http://ictlab.kg" target="_blank") О компании
+          form.login-right.flex(layout="column" ng-submit="auth.register()")
+            h2 Регистрация
+            div.form-group
+              input.form-control(placeholder="Пользователь"  ng-required='true' ng-model='auth.username')
+            div.form-group
+              input.form-control(type="email" placeholder="Email" ng-required='true'  ng-model='auth.email')
+            div.form-group
+              input.form-control(type="password" placeholder="Пароль"  ng-required='true' ng-model='auth.password')
+            div
+              button.btn.btn-login(type='submit' ng-disabled='auth.auth_loading') Зарегистрироваться
+      .login.mobile
+        .login-left.flex(layout="column")
+          .stok-logo
+            //img(ng-src="/assets/images/stock2.png")
+          .stok-description.flex
+            h1 Добро пожаловать!
+            h2 Войдите в аккаунт Apostille
+            div
+              a.btn.btn-success(ui-sref="login") ВОЙТИ
+            form.login-right(layout="column" ng-submit="auth.register()")
+              h2 Регистрация
+              div.form-group
+                input.form-control(placeholder="Пользователь"  ng-required='true' ng-model='auth.username')
+              div.form-group
+                input.form-control(type="email" placeholder="Email" ng-required='true'  ng-model='auth.email')
+              div.form-group
+                input.form-control(type="password" placeholder="Пароль"  ng-required='true' ng-model='auth.password')
+              div
+                button.btn.btn-login(type='submit' ng-disabled='auth.auth_loading') Зарегистрироваться
+          .stok-footer
+            .row
+              .col-xs-12.col-sm-12.col-md-6.text-center © 2017-2018 ICT lab
+              .col-xs-12.col-sm-12.col-md-6.text-center
+                a(href="http://ictlab.kg" target="_blank") О компании
+

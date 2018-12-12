@@ -1,0 +1,15 @@
+//
+   Created by Ilias on 21/11/17.
+
+.row
+  .col.col-xs-12.col-md-3
+    .list-group
+      a.list-group-item(ng-class='{active:dictionary.active_table.table==table.table}' ng-click='dictionary.active_table=table' ng-repeat='table in dictionary.tables | filter: dictionary.roleFilter track by table.table') {{table.name}}
+  .col.col-xs-12.col-md-9
+    button.btn.btn-primary.btn-sm(ng-click='dictionary.newDictionary()') Добавить
+    button.btn.btn-default.btn-sm(ng-disabled='!dictionary.selected_dictionary' ng-click='dictionary.editDictionary()')
+      span.glyphicon.glyphicon-pencil.margin-right-8
+      span Изменить
+    button.btn.btn-danger.btn-sm(ng-disabled='!dictionary.selected_dictionary' ng-click='dictionary.removeDictionary()')
+      span Удалить
+    div(dynamic='dictionary.grid')

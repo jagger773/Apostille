@@ -1,0 +1,9 @@
+.input-group
+  .input-group-addon(ng-show='loadingDocuments')
+    span.glyphicon.glyphicon-refresh
+  .input-group-addon(ng-show='noDocuments')
+    span.glyphicon.glyphicon-remove.text-danger
+  input.form-control(type='text' ng-model='document.selected' uib-typeahead='document as document.title for document in document.searchDocument($viewValue)' typeahead-loading='loadingDocuments' typeahead-no-results='noDocuments' ng-disabled='ngDisabled')
+  .input-group-btn
+    button.btn.btn-primary(type='button' ng-click='document.openSelectDocument()' ng-disabled='ngDisabled')
+      span.glyphicon.glyphicon-paperclip

@@ -1,0 +1,23 @@
+form(ng-submit='edit.save()')
+  .modal-header
+    h3 Запрос
+  .modal-body
+    .row
+      col-responsive
+        .form-group
+          label Код
+          input.form-control(type='text' ng-model='edit.query.code' ng-required='true')
+      col-responsive
+        .form-group
+          label Наименование
+          input.form-control(type='text' ng-model='edit.query.name' ng-required='true')
+      col-responsive
+        .form-group
+          label Ключ возврата
+          input.form-control(type='text' ng-model='edit.query.result_key' ng-required='true')
+    .form-group
+      label Запрос
+      textarea.form-control(rows=10 ng-required='true' ng-model='edit.query.query')
+  .modal-footer
+    button.btn.btn-warning(ng-disabled='edit.saving' type='button' ng-click='edit.cancel()') Отмена
+    button.btn.btn-primary(ng-disabled='edit.saving' type='submit') Сохранить

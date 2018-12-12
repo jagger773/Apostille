@@ -1,0 +1,5 @@
+.row(ng-controller='PositionsController as positions')
+  col-responsive
+    .form-group
+      label Наименование
+      input.form-control(type='text' ng-model='edit.dictionary.name' ng-required='true' ng-trim='true')

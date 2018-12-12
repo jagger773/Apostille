@@ -1,0 +1,10 @@
+.row(ng-controller='CountriesController as countries')
+  col-responsive
+    .form-group
+      label Название
+      input.form-control(type='text', ng-model='edit.dictionary.name', ng-required='true', ng-trim='true')
+  col-responsive
+    .form-group
+      label Название(Англ)
+      input.form-control(type='text', ng-model='edit.dictionary.data.name_eng'  ng-trim='true')
+

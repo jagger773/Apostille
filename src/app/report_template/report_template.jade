@@ -1,0 +1,15 @@
+panel(title='Шаблоны отчетов')
+  .form-group
+    button.btn.btn-primary(ng-click='report_template.newTemplate()') Новый шаблон
+    button.btn.btn-default(ng-click='report_template.editTemplate()' ng-disabled='!report_template.selected_template') Редактировать
+    button.btn.btn-default(ng-click='report_template.getTemplates()')
+      span.glyphicon.glyphicon-refresh
+  paged-table(options='report_template.gridOptions' disable-paging='true' disable-search='true')
+.ln_solid
+panel(title='Запросы отчетов')
+  .form-group
+    button.btn.btn-primary(ng-click='report_template.newQuery()') Новый запрос
+    button.btn.btn-default(ng-click='report_template.editQuery()' ng-disabled='!report_template.selected_query') Редактировать
+    button.btn.btn-default(ng-click='report_template.getQueries()')
+      span.glyphicon.glyphicon-refresh
+  paged-table(options='report_template.queriesGridOptions' disable-paging='true' disable-search='true')

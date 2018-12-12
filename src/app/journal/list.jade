@@ -1,0 +1,71 @@
+.container
+  panel(title='Учет регистрации')
+    form(ng-submit='list.getJournals()')
+      .row
+        col-responsive
+          .form-group
+            label Номер:
+            input.form-control(type='text', ng-model='list.filter.number')
+        col-responsive
+          .form-group
+            label ФИО заявителя:
+            input.form-control(type='text', ng-model='list.filter.userdoc_name')
+        col-responsive
+          .form-group
+            label Тип лица:
+            ui-select.form-control(ng-model='list.filter.typeperson_id' ng-required='true')
+              ui-select-match(allow-clear='true') {{$select.selected.name}}
+              ui-select-choices(repeat='typeperson._id as typeperson in list.typepersons | filter:$select.search') {{typeperson.name}}
+        col-responsive
+          .form-group
+            label Документ:
+            ui-select.form-control(ng-model='list.filter.dtypes_id' ng-required='true')
+              ui-select-match(allow-clear='true') {{$select.selected.name}}
+              ui-select-choices(repeat='dtype._id as dtype in list.dtypes | filter:$select.search') {{dtype.name}}
+        col-responsive
+          .form-group
+            label Статус:
+            ui-select.form-control(ng-model='list.filter.status' ng-required='true')
+              ui-select-match(allow-clear='true') {{$select.selected.name}}
+              ui-select-choices(repeat='status.value as status in list.statuses | filter:$select.search') {{status.name}}
+        col-responsive
+          .form-group
+            label Страна:
+            ui-select.form-control(ng-model='list.filter.country_id' ng-required='true')
+              ui-select-match {{$select.selected.name}}
+              ui-select-choices(repeat='country._id as country in list.countries | filter:$select.search') {{country.name}}
+        col-responsive
+          .form-group
+            label Начало:
+            .input-group.no-margin
+              input.form-control(type="text" max-date="list.date_end" uib-datepicker-popup="dd-MM-yyyy" ng-model="list.filter.date_start"
+              ng-click="list.search.popup_to_date.opened=true" is-open="list.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="list.search.popup_to_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+        col-responsive
+          .form-group
+            label Конец:
+            .input-group.no-margin
+              input.form-control(type="text" uib-datepicker-popup="dd-MM-yyyy" min-date="list.date_start" ng-model="list.filter.date_end"
+              ng-click="list.search.popup_from_date.opened=true" is-open="list.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="list.search.popup_from_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+      .btn-group-sm
+        button.btn.btn-success(type='submit')
+          span.glyphicon.glyphicon-search.margin-right-8
+          span Найти
+        //button.btn.btn-default(type='button' ng-click="list.filter=list.filter ? null : {}") {{list.filter ? 'Скрыть':'Показать'}} фильтры
+        button.btn.btn-default(type='button'  ng-click='list.filter={}') Сбросить фильтры
+        .clearfix
+    button.btn.btn-default(type='button', ng-click='list.goToNew()') Добавить
+    button.btn.btn-default(ng-click='list.goToDelivery(list.selected_journal)' ng-disabled="!list.selected_journal || list.selected_journal.status != 'Входящий' || list.selected_journal.flag != 'true' ")
+      span Выдать
+    button.btn.btn-default(ng-click='list.goToShow(list.selected_journal._id)' ng-disabled="!list.selected_journal")
+      span Просмотр
+    button.btn.btn-default(ng-click='list.refuse()' ng-disabled="!list.selected_journal || list.selected_journal.status != 'Входящий' ")
+      span Испорчен
+    button.btn.btn-default(type='button', ng-click='list.getJournals()')
+      span.glyphicon.glyphicon-refresh
+    paged-table(options="list.journalGridOptions", disable-search="true", height="500")

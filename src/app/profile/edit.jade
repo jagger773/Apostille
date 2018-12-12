@@ -1,0 +1,79 @@
+//Created by troy on 09.09.2016.
+
+.container
+  .row
+    .col.col-xs-12.col-lg-3
+      h4 Аватар пользователя
+      p Здесь вы можете поменять ваш аватар или удалить.
+    .col.col-xs-12.col-lg-9(flow-init='{singleFile:true}')
+      .clearfix.pull-left
+        img.profile-image-lg(ng-src="{{app.api}}{{doc_edit.profile.data.image}}")
+      h5 Загрузить новый аватар
+      span.btn.btn-default.margin-right-8(flow-btn flow-file-added="edit.imageSelected($event, $flow, $file)") Выбрать файл...
+      span {{$flow.files[0].name}}
+      hr
+      btn.btn.btn-default(ng-click='doc_edit.profile.data.image="image/user/default/user_icon.png"') Удалить аватар
+  .ln_solid
+  .row
+    .col.col-xs-12.col-lg-3
+      h4 Основные параметры
+      p Эта информация доступна в вашем профиле.
+    .col.col-xs-12.col-lg-9
+      form.form-horizontal(ng-submit='edit.putData()')
+        .form-group
+          label Имя пользователя (Логин)
+          input.form-control(type='text' ng-model='edit.profile.username' ng-trim='true' ng-required='true')
+        .form-group
+          label E-mail
+          input.form-control(type='text' ng-model='edit.profile.email' ng-trim='true' ng-required='true')
+        .form-group
+          label Фамилия
+          input.form-control(type='text' ng-model='edit.profile.data.surname' ng-trim='true')
+        .form-group
+          label Имя
+          input.form-control(type='text' ng-model='edit.profile.data.name' ng-trim='true')
+        .form-group
+          label Отчество
+          input.form-control(type='text' ng-model='edit.profile.data.middlename' ng-trim='true')
+        .form-group
+          label Должность
+          input.form-control(type='text' ng-model='edit.profile.data.position' ng-trim='true')
+        .form-group
+          label Адрес
+          input.form-control(type='text' ng-model='edit.profile.data.address' ng-trim='true')
+        .form-group
+          label Мобильный телефон
+          input.form-control(type='text' ng-model='edit.profile.data.mobile' ng-trim='true')
+        .form-group
+          label Рабочий телефон
+          input.form-control(type='text' ng-model='edit.profile.data.phone' ng-trim='true')
+        .form-group
+          label Дата рождения
+          .input-group.no-margin
+            input.form-control(type="text" uib-datepicker-popup ng-model="edit.profile.data.birthdate" is-open="edit.datepicker_opened")
+            span.input-group-btn
+              button.btn.btn-default(type="button" ng-click="doc_edit.openDatePicker()")
+                i.glyphicon.glyphicon-calendar
+        button.btn.btn-success(type='submit') Сохранить изменения
+  .ln_solid
+  .row
+    .col.col-xs-12.col-lg-3
+      h4 Сменить пароль
+      p Для смены пароля заполните все поля.
+    .col.col-xs-12.col-lg-9
+      form.form-horizontal(ng-submit='doc_edit.changePassword()')
+        .form-group
+          label Текущий пароль
+          input.form-control(type='password' ng-model='edit.profile.password' ng-required='true')
+        .form-group
+          label.margin-right-8 Новый пароль
+          span(ng-show='doc_edit.profile.new_password')
+            span.indicator.danger(ng-class='{"success":doc_edit.passwordLevel() > 0}')
+            span.indicator.danger(ng-class='{"success":doc_edit.passwordLevel() > 1}')
+            span.indicator.danger(ng-class='{"success":doc_edit.passwordLevel() > 2}')
+          input.form-control(type='password' ng-model='edit.profile.new_password' ng-required='true')
+        .form-group
+          label.margin-right-8 Повтор нового пароля
+          span.glyphicon.glyphicon-ok.text-success(ng-if='doc_edit.passwordConfirmed()')
+          input.form-control(type='password' ng-model='edit.profile.confirm_password' ng-required='true')
+        button.btn.btn-warning(ng-disabled='!doc_edit.canChangePassword()') Сменить пароль

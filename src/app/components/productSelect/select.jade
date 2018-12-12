@@ -1,0 +1,34 @@
+//
+   Created by Ilias on 21/11/17.
+
+
+.modal-header
+  h3 {{product.modalOptions.title}}
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='product.searchProducts()')
+        .form-group
+          label Наименование/Код/Штрихкод
+          input.form-control(type='search' ng-model='product.search_name')
+        .from-group(stock-dict='edit.product_types' dict-table='Enums' dict-filter='{name:"product_type"}' ng-hide='product.modalOptions.filter.product_type')
+          label Тип продукта
+          ui-select(ng-model='product.product_type')
+            ui-select-match(allow-clear='true') {{$select.selected.data.name}}
+            ui-select-choices(repeat='type.data.key as type in doc_edit.product_types | filter:$select.search track by type.data.key') {{type.data.name}}
+        .from-group(stock-dict='edit.categories' dict-table='Categories' dict-options='{onlyChildren:true}')
+          label Категория
+          ui-select(ng-model='product.category_id')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='category._id as category in doc_edit.categories | filter:{name:$select.search} track by category._id' group-by='product.categoryParentGroup') {{category.name}}
+        .from-group(stock-dict='product.units' dict-table='Units')
+          label Единица измерения
+          ui-select(ng-model='product.unit_id')
+            ui-select-match(allow-clear='true') {{$select.selected.name}}
+            ui-select-choices(repeat='unit._id as unit in product.units | filter:{name:$select.search} track by unit._id') {{unit.name}}
+        button.btn.btn-success(type='submit') Показать
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='product.gridOptions' disable-search='true' height='500')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='product.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!product.selected_product' ng-click='product.selectProduct()') Принять

@@ -1,0 +1,25 @@
+//
+   Created by Ilias on 16/12/17.
+
+
+.modal-header
+  h3 {{organization.modalOptions.title}}
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='organization.searchOrganizations()')
+        .form-group
+          label Наименование Ru
+          input.form-control(type='search' ng-model='organization.search_name_ru')
+          label Наименование KG
+          input.form-control(type='search' ng-model='organization.search_name_kg')
+          label ИНН
+          input.form-control(type='search' ng-model='organization.search_inn')
+
+        button.btn.btn-success(type='submit') Показать
+        button.btn.btn-success(type='button' ng-click='organization.createOrganization()') Создать новый
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='organization.gridOptions' disable-search='true' height='500')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='organization.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!organization.selected_organization' ng-click='organization.selectOrganization()') Принять

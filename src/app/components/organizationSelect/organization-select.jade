@@ -1,0 +1,9 @@
+.input-group
+  .input-group-addon(ng-show='loadingOrganizations')
+    span.glyphicon.glyphicon-refresh
+  .input-group-addon(ng-show='noOrganizations')
+    span.glyphicon.glyphicon-remove.text-danger
+  input.form-control(type='text' ng-model='organization.selected' uib-typeahead='organization as organization.name_ru for organization in organization.searchOrganization($viewValue)' typeahead-loading='loadingOrganizations' typeahead-no-results='noOrganizations' ng-disabled='ngDisabled')
+  .input-group-btn
+    button.btn.btn-primary(type='button' ng-click='organization.openSelectOrganization()' ng-disabled='ngDisabled')
+      span.glyphicon.glyphicon-paperclip

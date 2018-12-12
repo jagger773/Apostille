@@ -1,0 +1,45 @@
+.container
+  panel(title='Список образцов')
+    form(ng-submit='list.getDocuments()')
+      .row
+        col-responsive
+          .form-group
+            label ФИО:
+            input.form-control(type='text',size="80",ng-model='list.filter.title',placeholder='Search...')
+        col-responsive
+          .form-group
+            label Организaция:
+            organization-select(organization-id='list.filter.organization_id')
+        col-responsive
+          .form-group
+            label Должность:
+            position-select(position-id='list.filter.position_id')
+            //ui-select.form-control(ng-model='list.filter.position_id' ng-required='true')
+            //  ui-select-match {{$select.selected.name}}
+            //  ui-select-choices(repeat='position._id as position in list.positions | filter:$select.search') {{position.name}}
+      .btn-group-sm
+        button.btn.btn-success(type='submit')
+          span.glyphicon.glyphicon-search.margin-right-8
+          span Найти
+        button.btn.btn-default(type='button'  ng-click='list.filter={}') Сбросить фильтры
+        .clearfix
+
+    button.btn.btn-default(type='button', ng-click='list.info(list.selected_doc._id)')
+      |  Просмотр
+    button.btn.btn-default(type='button', ng-click='list.newDocument()')
+      |  Создать
+    button.btn.btn-danger(type='button', ng-click='list.removeDocument()' ng-show="app.ua.role == 10")
+      |  Удалить
+    button.btn.btn-default(type='button', ng-click='list.editDocument()' ng-show="app.ua.role == 10")
+      |  Редактировать
+    //paged-table(options="list.documentGridOptions", disable-search="true", height='750')
+    table.table
+      tbody
+        tr(ng-repeat='item in list.documents')
+          th {{item.title}}
+          td {{item.organization.name_ru}}
+          td {{item.data.files[0].filename}}
+          td
+            img.img-responsive(src='{{item.data.files[0].url}}', alt='Cinque Terre')
+
+

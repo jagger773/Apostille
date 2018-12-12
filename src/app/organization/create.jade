@@ -1,0 +1,20 @@
+form(ng-submit='create.createOrganization()')
+  .modal-header
+    h3 Новый пользователь
+  .modal-body
+    .row
+      col-responsive
+        .form-group
+          label Наименование Ru
+          input.form-control(type='text' ng-model='create.organization.name_ru' ng-required='true' ng-trim='true')
+      col-responsive
+        .form-group
+          label Наименование Kg
+          input.form-control(type='text' ng-model='create.organization.name_kg' ng-trim='true')
+      col-responsive
+        .form-group
+          label Инн
+          input.form-control(type='text' ng-model='create.organization.inn' ng-trim='true')
+  .modal-footer
+    button.btn.btn-primary.btn-sm.pull-right(type='submit') Сохранить
+    button.btn.btn-warning.btn-sm.pull-right(type='button', ng-click='create.cancel()') Отмена

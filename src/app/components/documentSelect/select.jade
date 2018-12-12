@@ -1,0 +1,25 @@
+//
+   Created by Ilias on 16/12/17.
+
+
+.modal-header
+  h3 {{document.modalOptions.title}}
+.modal-body
+  .row
+    .col.col-xs-12.col-sm-12.col-md-4
+      form.form-horizontal(ng-submit='document.searchDocuments()')
+        .form-group
+          label ФИО
+          input.form-control(type='search' ng-model='document.search_title')
+          label Организация
+          organization-select(organization-id='document.search_organization_id', required)
+          label Должность
+          position-select(position-id='document.search_position_id', required)
+
+        button.btn.btn-success(type='submit') Показать
+        //button.btn.btn-success(type='button' ng-click='document.createDocument()') Создать новый
+    .col.col-xs-12.col-sm-12.col-md-8
+      paged-table(options='document.gridOptions' disable-search='true')
+.modal-footer
+  button.btn.btn-default(type='button' ng-click='document.cancel()') Отмена
+  button.btn.btn-primary(ng-disabled='!document.selected_document' ng-click='document.selectDocument()') Принять

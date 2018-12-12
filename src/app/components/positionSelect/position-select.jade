@@ -1,0 +1,9 @@
+.input-group
+  .input-group-addon(ng-show='loadingPositions')
+    span.glyphicon.glyphicon-refresh
+  .input-group-addon(ng-show='noPositions')
+    span.glyphicon.glyphicon-remove.text-danger
+  input.form-control(type='text' ng-model='position.selected' uib-typeahead='position as position.name for position in position.searchPosition($viewValue)' typeahead-loading='loadingPositions' typeahead-no-results='noPositions' ng-disabled='ngDisabled')
+  .input-group-btn
+    button.btn.btn-primary(type='button' ng-click='position.openSelectPosition()' ng-disabled='ngDisabled')
+      span.glyphicon.glyphicon-paperclip

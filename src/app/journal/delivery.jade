@@ -1,0 +1,151 @@
+//
+   Created by troy on 13.10.2016.
+
+panel(title="Выдача Апостиля")
+  wizard(hide-indicators="false" indicators-position="top")
+    wz-step(wz-title="Документы")
+      div(dynamic="html")
+      form.form-horizontal.form-label-left
+        .row
+          .col-md-4.col-sm-4.col-xs-4
+            a.btn.btn-default(ui-sref="app.journal.list") Отмена
+          .col-md-4.col-sm-4.col-xs-4
+            .well.well-sm.text-center
+              h2 Документы
+          .col-md-4.col-sm-4.col-xs-4
+            .btn-group.pull-right
+        br
+        .row
+          form
+            .row
+              col-responsive
+                .form-group
+                  label ФИО:
+                  input.form-control(type='text', ng-model='delivery.filter.title', placeholder='Search...')
+              col-responsive
+                .form-group
+                  label Организaция
+                  ui-select.form-control(ng-model='delivery.filter.organization_id' ng-required='true')
+                    ui-select-match(allow-clear='true')  {{$select.selected.name_ru}}
+                    ui-select-choices(repeat='organization._id as organization in delivery.organizations | filter:$select.search') {{organization.name_ru}}
+
+              col-responsive
+                .form-group
+                  label Позиция
+                  ui-select.form-control(ng-model='delivery.filter.position_id' ng-required='true')
+                    ui-select-match(allow-clear='true')  {{$select.selected.name}}
+                    ui-select-choices(repeat='position._id as position in delivery.positions | filter:$select.search') {{position.name}}
+          button.btn.btn-primary(type='button', ng-click='delivery.findDocument()')
+            i.fa.fa-search(aria-hidden='true')
+            |  Применить фильтры
+          button.btn.btn-default(type='button'  ng-click='delivery.filter={}') Сбросить фильтры
+            .clearfix
+          button.btn.btn-default(type='button', wz-next, ng-disabled='!delivery.selected_doc')
+            |  Просмотр
+          paged-table(options="delivery.documentGridOptions", disable-search="true", height="550")
+
+    wz-step(wz-title="Просмотр документа")
+      div(dynamic="html")
+      form.form-horizontal.form-label-left
+        .row
+          .col-md-4.col-sm-4.col-xs-4
+            a.btn.btn-default(ui-sref="app.journal.list") Отмена
+          .col-md-4.col-sm-4.col-xs-4
+            .well.well-sm.text-center
+              h2 Просмотр документа
+          .col-md-4.col-sm-4.col-xs-4
+            button.btn.btn-danger(ng-click='delivery.refuse()')
+              span Отказано
+            .btn-group.pull-right
+              a.btn.btn-success(wz-next ng-disabled="import.alerts.length>0") Дальше
+              a.btn.btn-primary(wz-previous="import.clear()") Назад
+      h2
+      .panel-group
+        .panel.panel-default
+          .panel-heading
+            h4.panel-title
+            .panel-body
+              .container
+                .col-md-8.col-sm-7.col-xs-12
+                  .product-image(ng-init="zoomWidth = 1000;imgStyle = {width:'500px'}", ng-style='imgStyle', ng-mouse-wheel-up="zoomWidth = zoomWidth + 20; imgStyle.width = zoomWidth +'px'; ", ng-mouse-wheel-down="zoomWidth = zoomWidth - 20;imgStyle.width = zoomWidth  +'px'; ")
+                    img(src='{{delivery.selected_doc.data.files[delivery.slid].url}}', alt='...')
+                    hr
+                  .product_gallery
+                    a(ng-repeat="url in delivery.selected_doc.data.files",ng-click='delivery.show($index)')
+                      img.gallery(src='{{url.url}}', alt='...')
+                .container
+                  .sized
+                    strong ФИО: &nbsp;
+                    | {{delivery.selected_doc.title}}
+                  br
+                  .sized
+                    strong Организация: &nbsp;
+                    | {{delivery.selected_doc.organization.name_ru}}
+                  br
+                  .sized
+                    strong Позиция: &nbsp;
+                    | {{delivery.selected_doc.position.name}}
+
+                  hr
+
+    wz-step(wz-title="Печать апостиля")
+      form.form-horizontal.form-label-left
+        .row
+          .col-md-4.col-sm-4.col-xs-4
+            a.btn.btn-default(ui-sref="app.journal.list") Отмена
+          .col-md-4.col-sm-4.col-xs-4
+            .well.well-sm.text-center
+              h2 Форма печати для Апостиля
+          .col-md-4.col-sm-4.col-xs-4
+            .btn-group.pull-right
+              a.btn.btn-primary(wz-previous)
+                i.fa.fa-long-arrow-left(aria-hidden='true')
+              a.btn.btn-success(ng-click="delivery.saveJournal()")
+                | Выход
+        br
+      h2 Заполните пожалуйста поля
+      .row
+        col-responsive
+          .form-group
+            label Өлкө
+            input.form-control(type='text', ng-model='delivery.journal.country' required)
+        col-responsive
+          .form-group
+            label Кол коюлду
+            input.form-control(type='text', ng-model='delivery.journal.Signature1', required, disabled)
+        col-responsive
+          .form-group
+            label Катарында чыккан
+            input.form-control(type='text', ng-model='delivery.journal.issuing_authority' required)
+        col-responsive
+          .form-group
+            label Моор/штамп менен куболондурулгон (мекеменин аталышы)
+            input.form-control(type='text', ng-model='delivery.journal.mop' required disabled)
+        col-responsive
+          .form-group
+            label Шаар
+            input.form-control(type='text', ng-model='delivery.journal.city' required)
+        col-responsive
+          .form-group
+            label Датасы
+            input.form-control(type='text', ng-model='delivery.journal.date_view_format' required)
+        col-responsive
+          .form-group
+            label (Куболондургон органдын аталышы)
+            input.form-control(type='text', ng-model='delivery.journal.minust' required)
+        col-responsive
+          .form-group
+            label №
+            input.form-control(type='text', ng-model='delivery.journal.number' required)
+        col-responsive
+          .form-group
+            label ФИО проставившего Апостиль
+            input.form-control(type='text', ng-model='delivery.journal.employee' required)
+      .form-group
+        button.btn.btn-default(type='button' ng-click='delivery.getReportData()' ng-disabled='delivery.data_loading') Показать
+#viewerContent(ng-show='delivery.report_template_viewer')
+
+
+
+
+

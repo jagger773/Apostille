@@ -1,0 +1,141 @@
+//
+   Created by jaynakus on 5/26/16.
+
+
+.container.body.footer-fixed
+  .main_container
+    // page content
+    .right_col(role="main")
+      .login.desktop
+        .flex(layout="row")
+          .login-left.flex(layout="column")
+            form.login-left.flex(layout="column" ng-submit="auth.checkPolicy()")
+              h2 Здесь Вы можете проверить вашу запись в книге регистрации
+              .row
+                  .form-group
+                    label Номер:
+                    input.form-control(placeholder="Введите номер записи"  ng-required='true' ng-model='auth.policy_no')
+                  .form-group
+                    label Дата:
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup="dd-MM-yyyy" ng-model="auth.date"
+                      ng-click="auth.search.popup_to_date.opened=true" is-open="auth.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button", ng-click="auth.search.popup_to_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                  .form-group
+                    button.btn.btn-login(type='submit') Проверить
+              div(ng-show='auth.textError')
+                h2 К сожалению, записи с таким номером отсутствует в базе
+              div(ng-show='auth.policyShow')
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label Номер:
+                        span {{auth.journal.number}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label(ng-style="{'background-color':auth.color}")  Статус: {{auth.journal.status}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  Наименование официального документа: {{auth.journal.adocument_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  фИО подписавшего официальный документ: {{auth.journal.userdoc_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  ФИО проставившего апостиль: {{auth.journal.empolyee_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  ФИО заявителя: {{auth.journal.client_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  Страна: {{auth.journal.country_name}}
+
+            .stok-footer
+              .row
+                .col-xs-12.col-sm-12.col-md-6.text-center © 2017-2018 Министерство юстиции Кыргызской Республики.Все права защищены
+                .col-xs-12.col-sm-12.col-md-6.text-center
+                  a(href="http://ictlab.kg" target="_blank") О компании
+          form.login-right.flex(layout="column" ng-submit="auth.login()")
+            h2 Авторизация
+            div.form-group
+              input.form-control(placeholder="Пользователь"  ng-required='true' ng-model='auth.username')
+            div.form-group
+              input.form-control(type="password" placeholder="Пароль"  ng-required='true' ng-model='auth.password')
+            div
+              button.btn.btn-login(type='submit' ng-disabled='auth.auth_loading') Войти
+      .login.mobile
+        .login-left.flex(layout="column")
+          .stok-logo
+            //img(ng-src="/assets/images/stock2.png")
+          .stok-description.flex
+            form.login-left.flex(layout="column" ng-submit="auth.checkPolicy()")
+              h2 Здесь Вы можете проверить вашу запись в книге регистрации
+              .row
+                .col-md-8
+                  .form-group
+                    label Номер:
+                    input.form-control(placeholder="Введите номер записи"  ng-required='true' ng-model='auth.policy_no')
+                .col-md-8
+                  .form-group
+                    label Дата:
+                    .input-group.no-margin
+                      input.form-control(type="text" uib-datepicker-popup="dd-MM-yyyy" ng-model="auth.date"
+                      ng-click="auth.search.popup_to_date.opened=true" is-open="auth.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+                      span.input-group-btn
+                        button.btn.btn-default(type="button", ng-click="auth.search.popup_to_date.opened=true")
+                          i.glyphicon.glyphicon-calendar
+                .col-md-8
+                  .form-group
+                    button.btn.btn-login(type='submit') Проверить
+              div(ng-show='auth.textError')
+                h2 К сожалению, записи с таким номером отсутствует в базе
+              div(ng-show='auth.policyShow')
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label Номер: {{auth.journal.number}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label(ng-style="{'background-color':auth.color}")  Статус: {{auth.journal.status}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  Наименование официального документа: {{auth.journal.adocument_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  фИО подписавшего официальный документ: {{auth.journal.userdoc_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  ФИО проставившего апостиль: {{auth.journal.empolyee_name}}
+                .row
+                  .col-md-8.col-sm-12
+                    .form-group
+                      label  ФИО заявителя: {{auth.journal.client_name}}
+                .row
+                 .col-md-8.col-sm-12
+                    .form-group
+                      label  Страна: {{auth.journal.country_name}}
+            form.login-right(layout="column" ng-submit="auth.login()")
+              h2 Авторизация
+              div.form-group
+                input.form-control(placeholder="Пользователь"  ng-required='true' ng-model='auth.username')
+              div.form-group
+                input.form-control(type="password" placeholder="Пароль"  ng-required='true' ng-model='auth.password')
+              div
+                button.btn.btn-login(type='submit' ng-disabled='auth.auth_loading') Войти
+          .stok-footer
+            .row
+              .col-xs-12.col-sm-12.col-md-6.text-center © 2017-2018 Министерство юстиции Кыргызской Республики.Все права защищены
+              .col-xs-12.col-sm-12.col-md-6.text-center
+                a(href="http://ictlab.kg" target="_blank") О компании

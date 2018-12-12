@@ -1,0 +1,42 @@
+.container
+  panel(title='Отчеты по сотрудникам')
+    form(ng-submit='list.getJournals()')
+      .row
+        col-responsive
+          .form-group
+            label Сотрудники:
+            ui-select.form-control(ng-model='list.filter.user_id' ng-required='true')
+              ui-select-match(allow-clear='true') {{$select.selected.username}}
+              ui-select-choices(repeat='user.id as user in list.users | filter:$select.search') {{user.username}}
+        col-responsive
+          .form-group
+            label Начало:
+            .input-group.no-margin
+              input.form-control(type="text" max-date="list.date_end" uib-datepicker-popup="dd-MM-yyyy" ng-model="list.filter.start_date"
+              ng-click="list.search.popup_to_date.opened=true" is-open="list.search.popup_to_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="list.search.popup_to_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+        col-responsive
+          .form-group
+            label Конец:
+            .input-group.no-margin
+              input.form-control(type="text" uib-datepicker-popup="dd-MM-yyyy" min-date="list.date_start" ng-model="list.filter.end_date"
+              ng-click="list.search.popup_from_date.opened=true" is-open="list.search.popup_from_date.opened", close-text="Закрыть", current-text='Сегодня', clear-text='Очистить')
+              span.input-group-btn
+                button.btn.btn-default(type="button", ng-click="list.search.popup_from_date.opened=true")
+                  i.glyphicon.glyphicon-calendar
+      .btn-group-sm
+        button.btn.btn-success(type='submit')
+          span.glyphicon.glyphicon-search.margin-right-8
+          span Найти
+        button.btn.btn-default(type='button'  ng-click='list.filter={}') Сбросить фильтры
+        .clearfix
+    button.btn.btn-default(type='button' ng-click="list.downloadPDFRPA()")
+      i.fa.fa-print(aria-hidden='true')
+      |   Отчет
+    //button.btn.btn-default(type='button' ng-click="list.downloadPDFRPA()")
+    //  i.fa.fa-print(aria-hidden='true')
+    //  |   Отчет по срочным
+    paged-table(options="list.journalGridOptions", disable-search="true", height="500")
+

@@ -1,0 +1,84 @@
+panel(title="Просмотр" )
+  .wrapper-md
+    .row
+      .col.col-md-8
+        .row
+          col-responsive
+            .form-group
+              label
+                strong Номер:
+              p.form-control-static {{ view.journal.number}}
+        hr
+        .row
+          col-responsive
+            .form-group
+              label
+                strong наименование официального документа:
+              p.form-control-static {{view.journal.adocument.dtypes.name}}
+          col-responsive
+            .form-group
+              label
+                strong Реквизиты документа:
+              p.form-control-static {{view.journal.adocument.requisites}}
+        hr
+        .row
+          col-responsive
+            .form-group
+              label
+                strong ФИО подписавшего документ:
+              p.form-control-static  {{view.journal.userdoc.document.title}}
+        hr
+        .row
+          col-responsive
+            .form-group
+              label
+                strong ФИО проставившего апостиль:
+              p.form-control-static {{view.journal.empolyee.name}}
+          col-responsive
+            .form-group
+              label
+                strong Должность проставившего апостиль:
+              p.form-control-static {{view.journal.empolyee.position}}
+
+        hr
+        .row
+          col-responsive
+            .form-group
+              label
+                strong ФИО заявителя:
+              p.form-control-static
+                | {{view.journal.client.name}}
+          col-responsive
+            .form-group
+              label
+                strong Документы удостоверяющие личность:
+              p.form-control-static {{ view.journal.client.document}}
+        hr
+        .row
+          col-responsive
+            .form-group
+              label
+                strong Страна:
+              p.form-control-static  {{ view.journal.country.name}}
+        .row
+          col-responsive
+            .form-group
+              label
+                strong Реквизиты об оплате:
+              p.form-control-static {{ view.journal.requisites.data}}
+        .row
+          col-responsive
+            .form-group
+              label
+                strong Сумма оплаты:
+              p.form-control-static  {{ view.journal.summ}}
+      .col.col-md-4
+        .product-image
+          img(src='{{view.journal.data.files[info.slid].url}}', alt='...')
+          hr
+        .product_gallery
+          a(ng-repeat="url in view.journal.data.files",ng-click='journal.show($index)')
+            img.gallery(src='{{url.url}}', alt='...')
+    hr
+    form.crt(ng-submit='view.saveDoc()' name='adddocument')
+      a.btn.btn-link.btn-sm(ng-disabled='view.saving==true', type='button', ui-sref='app.journal.list') Назад

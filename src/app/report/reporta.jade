@@ -1,0 +1,16 @@
+.row
+  col-responsive
+    .form-group
+      label Категория
+      ui-select(ng-model='reporta.search.report_category_id', on-select="reporta.getReportList()")
+        ui-select-match {{$select.selected.name}}
+        ui-select-choices(repeat='category._id as category in reporta.report_categories|filter:{name:$select.search}' group-by='app.parentGroup') {{category.name}}
+  col-responsive
+    .form-group
+      label Отчет
+      ui-select(ng-model='reporta.selected_report', on-select="reporta.setSelected($select.selected)")
+        ui-select-match(allow-clear='true') {{$select.selected.name}}
+        ui-select-choices(repeat='reporta in reporta.reports|filter:{name:$select.search}') {{reporta.name}}
+#viewerContent
+#designerContent
+
